@@ -19,6 +19,8 @@ function App() {
     localStorage.setItem("savedEmail", inputValue);
   }, [inputValue]);
 
+  // Hello!
+
   return (
     <div className="App">
       <div className="app">
