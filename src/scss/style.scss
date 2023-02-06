@@ -1,0 +1,18 @@
+// Main Imports
+@import "./reset";
+@import "./vars";
+@import "./index";
+@import "./fonts";
+// Container
+@import "../container/Home/Home.scss";
+@import "../container/Registration/Registration.scss";
+@import "../container/SignIn/SignIn.scss";
+@import "../container/SignUp/SignUp.scss";
+@import "../container/Registration/Details/Details.scss";
+@import "../container/Registration/EmailVerify/EmailVerify.scss";
+// Components
+@import "../components/slider/Slider.scss";
+// Error
+@import "../components/Error/Error.scss";
+// Preloader
+@import "../components/preloader/Preloader.scss";
