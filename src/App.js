@@ -21,6 +21,8 @@ function App() {
 
   // Hello!
 
+  const bebra = '!'
+
   return (
     <div className="App">
       <div className="app">
