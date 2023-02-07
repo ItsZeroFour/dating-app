@@ -19,10 +19,6 @@ function App() {
     localStorage.setItem("savedEmail", inputValue);
   }, [inputValue]);
 
-  // Hello!
-
-  const bebra = '!'
-
   return (
     <div className="App">
       <div className="app">
