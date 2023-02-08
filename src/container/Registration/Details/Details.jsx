@@ -11,15 +11,23 @@ const Details = () => {
         <div className="details__content">
           <h1>Profile details</h1>
 
+          <input className="detailt__avatar-input" type="file" id="file" />
+            <label className="detailt__avatar-label" htmlFor="file">
+              <img
+                className="details__photo"
+                src={camera}
+                alt="select picture"
+              />
+            </label>
+
           <form className="details__form">
-            <img className="details__photo" src={camera} alt="select picture" />
             <div className="input__container">
-              <input type="text" name="name" required />
+              <input type="text" id="name" required />
               <label htmlFor="name">Name</label>
             </div>
 
             <div className="input__container">
-              <input type="text" name="lastname" required />
+              <input type="text" id="lastname" required />
               <label htmlFor="lastname">Last Name</label>
             </div>
 
