@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import camera from "../../../images/details/camera.png";
 
 const Details = () => {
   const getInputEmail = localStorage.getItem("savedEmail");
+  const [date, setDate] = useState("");
 
   return (
     <div className="details">
@@ -12,13 +13,9 @@ const Details = () => {
           <h1>Profile details</h1>
 
           <input className="detailt__avatar-input" type="file" id="file" />
-            <label className="detailt__avatar-label" htmlFor="file">
-              <img
-                className="details__photo"
-                src={camera}
-                alt="select picture"
-              />
-            </label>
+          <label className="detailt__avatar-label" htmlFor="file">
+            <img className="details__photo" src={camera} alt="select picture" />
+          </label>
 
           <form className="details__form">
             <div className="input__container">
@@ -31,7 +28,12 @@ const Details = () => {
               <label htmlFor="lastname">Last Name</label>
             </div>
 
-            <input type="date" name="date" required />
+            <input
+              type="date"
+              name="date"
+              required
+              onChange={(event) => setDate(event.target.value)}
+            />
           </form>
 
           <button className="registration__button details__button">

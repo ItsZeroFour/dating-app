@@ -5,7 +5,7 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: process.env.REACT_APP_FIREBASE_CODE_KEY,
   authDomain: "datingapp-codeverify.firebaseapp.com",
   projectId: "datingapp-codeverify",
   storageBucket: "datingapp-codeverify.appspot.com",
