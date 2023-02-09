@@ -2,9 +2,35 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import camera from "../../../images/details/camera.png";
 
-const Details = () => {
+const Details = ({
+  setFirstName,
+  setLastName,
+  setBirthday,
+  unCorrectBirthday,
+  setPicture,
+  picture,
+}) => {
+  const [maxFileSize, setMaxFileSize] = useState(false);
   const getInputEmail = localStorage.getItem("savedEmail");
-  const [date, setDate] = useState("");
+
+  // File reader
+  const fileReader = new FileReader();
+  fileReader.onloadend = () => {
+    setPicture(fileReader.result);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+
+    // If file size is larger than max file size
+    if (file.size < 1048487) {
+      fileReader.readAsDataURL(file);
+      setMaxFileSize(false);
+    } else {
+      setMaxFileSize(true);
+    }
+  };
 
   return (
     <div className="details">
@@ -12,19 +38,44 @@ const Details = () => {
         <div className="details__content">
           <h1>Profile details</h1>
 
-          <input className="detailt__avatar-input" type="file" id="file" />
+          <input
+            className="detailt__avatar-input"
+            type="file"
+            id="file"
+            onChange={handleSubmit}
+          />
           <label className="detailt__avatar-label" htmlFor="file">
-            <img className="details__photo" src={camera} alt="select picture" />
+            {picture === "" ? (
+              <img
+                className="details__photo"
+                src={camera}
+                alt="select picture"
+              />
+            ) : (
+              <img className="details__avatar" src={picture} alt="avatar" />
+            )}
           </label>
 
           <form className="details__form">
             <div className="input__container">
-              <input type="text" id="name" required />
+              <input
+                type="text"
+                id="name"
+                onChange={(event) => setFirstName(event.target.value)}
+                required
+              />
               <label htmlFor="name">Name</label>
             </div>
 
             <div className="input__container">
-              <input type="text" id="lastname" required />
+              <input
+                type="text"
+                id="lastname"
+                onChange={(event) => {
+                  setLastName(event.target.value);
+                }}
+                required
+              />
               <label htmlFor="lastname">Last Name</label>
             </div>
 
@@ -32,8 +83,12 @@ const Details = () => {
               type="date"
               name="date"
               required
-              onChange={(event) => setDate(event.target.value)}
+              onChange={(event) => setBirthday(event.target.value)}
             />
+
+            {unCorrectBirthday && (
+              <p style={{ marginTop: "1rem" }}>Uncorrect birthday</p>
+            )}
           </form>
 
           <button className="registration__button details__button">

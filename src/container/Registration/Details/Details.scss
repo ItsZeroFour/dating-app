@@ -50,7 +50,7 @@
     transition: var(--transition) !important;
   }
 
-  input:focus~label {
+  input:focus ~ label {
     top: 25%;
     left: 15px;
     padding: 0 2px;
@@ -61,11 +61,12 @@
 .details__photo {
   width: 2rem;
   height: auto;
-  // margin-top: 2rem;
+  padding: 1.5rem;
+  border: 2px dashed var(--color-gray) !important;
+  border-radius: var(--border-radius-sm) !important;
 }
 
 .details__button {
-  // margin-top: 2rem;
   width: 100%;
   margin: 2rem;
 }
@@ -75,8 +76,12 @@
 }
 
 .detailt__avatar-label {
-  border: 2px dashed var(--color-gray) !important;
-  padding: 1.5rem;
   margin-top: 1rem;
-  border-radius: var(--border-radius-sm);
+}
+
+.details__avatar {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: var(--border-radius-sm) !important;
 }

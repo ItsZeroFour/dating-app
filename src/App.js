@@ -14,10 +14,47 @@ function App() {
     const initialValue = getSavedEmail;
     return initialValue || "";
   });
+  const [picture, setPicture] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [unCorrectBirthday, setUnCorrectBirthday] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("savedEmail", inputValue);
   }, [inputValue]);
+
+  const getBirthday = new Date(birthday);
+  const today = new Date();
+
+  const year = {
+    year: "numeric",
+  };
+
+  const day = {
+    day: "numeric",
+  };
+
+  const month = {
+    month: "long",
+  };
+
+  // Birthday
+  const getYear = getBirthday.toLocaleDateString("en-US", year);
+  const getDay = getBirthday.toLocaleDateString("en-US", day);
+  const getMonth = getBirthday.toLocaleDateString("en-US", month);
+
+  const getCurrentYear = today.toLocaleDateString("en-US", year);
+
+  useEffect(() => {
+    if (+getCurrentYear <= +getYear) {
+      setUnCorrectBirthday(true);
+    } else {
+      setUnCorrectBirthday(false);
+    }
+  }, [getYear]);
+
+  console.log(getYear, getDay, getMonth);
 
   return (
     <div className="App">
@@ -41,7 +78,16 @@ function App() {
             />
             <Route
               path="/datingapp/signup/registration/details"
-              element={<Details />}
+              element={
+                <Details
+                  setFirstName={setFirstName}
+                  setLastName={setLastName}
+                  setBirthday={setBirthday}
+                  unCorrectBirthday={unCorrectBirthday}
+                  setPicture={setPicture}
+                  picture={picture}
+                />
+              }
             />
             <Route path="/datingapp/signin" element={<SignIn />} />
             <Route path="*" element={<Error />} />
