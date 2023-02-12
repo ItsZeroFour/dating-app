@@ -35,3 +35,23 @@ body {
 p {
   color: var(--color-decondary);
 }
+
+.continue__button {
+  width: 100%;
+  padding: 1rem 1rem;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-white) !important;
+  background: var(--color-red) !important;
+  border-radius: var(--border-radius-md) !important;
+  text-align: center;
+}
+
+.goback__button-link {
+  background: var(--color-red) !important;
+  padding: 1rem 5rem;
+  color: var(--color-white) !important;
+  font-weight: bold;
+  border-radius: var(--border-radius-md) !important;
+}

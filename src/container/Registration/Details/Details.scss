@@ -50,7 +50,8 @@
     transition: var(--transition) !important;
   }
 
-  input:focus ~ label {
+  input:focus ~ label,
+    input:valid ~ label {
     top: 25%;
     left: 15px;
     padding: 0 2px;
@@ -82,6 +83,7 @@
 .details__avatar {
   width: 8rem;
   height: 8rem;
+  -o-object-fit: cover;
   object-fit: cover;
   border-radius: var(--border-radius-sm) !important;
 }

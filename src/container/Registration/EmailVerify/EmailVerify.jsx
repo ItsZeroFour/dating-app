@@ -64,7 +64,7 @@ const EmailVerify = ({ inputValue }) => {
 
   return (
     <div className="emailverify">
-      <div className="emailverify__top">
+      <div className="goback__button">
         <Link to="/datingapp/signup/registration">
           <FontAwesomeIcon icon={faAngleLeft} />
         </Link>

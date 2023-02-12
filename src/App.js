@@ -7,6 +7,10 @@ import Error from "./components/Error/Error";
 import SignIn from "./container/SignIn/SignIn";
 import SignUp from "./container/SignUp/SignUp";
 import EmailVerify from "./container/Registration/EmailVerify/EmailVerify";
+import { dbusers } from "./firebase/firebase-config-users";
+import { addDoc, collection } from "firebase/firestore";
+import Gender from "./container/Registration/Gender/Gender";
+import Interests from "./container/Registration/Interests/Interests";
 
 function App() {
   const [inputValue, setInputValue] = useState(() => {
@@ -15,10 +19,17 @@ function App() {
     return initialValue || "";
   });
   const [picture, setPicture] = useState("");
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [gender, setGender] = useState("");
+  const [interest1, setInterest1] = useState("");
+  const [interest2, setInterest2] = useState("");
+  const [interest3, setInterest3] = useState("");
+  const [location, setLocation] = useState("");
+  const [about, setAbout] = useState("");
   const [unCorrectBirthday, setUnCorrectBirthday] = useState(false);
+  const usersCollectionsRef = collection(dbusers, "datingusers");
 
   useEffect(() => {
     localStorage.setItem("savedEmail", inputValue);
@@ -54,7 +65,23 @@ function App() {
     }
   }, [getYear]);
 
-  console.log(getYear, getDay, getMonth);
+  const createUser = () => {
+    addDoc(usersCollectionsRef, {
+      FirstName: firstName,
+      LastName: lastName,
+      Gender: gender,
+      Location: location,
+      birthday: getDay,
+      birthmonth: getMonth,
+      birthyear: getYear,
+      email: inputValue,
+      interest1: interest1,
+      interest2: interest2,
+      interest3: interest3,
+      picture: picture,
+      about: about,
+    });
+  };
 
   return (
     <div className="App">
@@ -86,6 +113,40 @@ function App() {
                   unCorrectBirthday={unCorrectBirthday}
                   setPicture={setPicture}
                   picture={picture}
+                  firstName={firstName}
+                  lastName={lastName}
+                  birthday={birthday}
+                />
+              }
+            />
+            <Route
+              path="/datingapp/signup/registration/gender"
+              element={
+                <Gender
+                  setGender={setGender}
+                  gender={gender}
+                  picture={picture}
+                  firstName={firstName}
+                  lastName={lastName}
+                  birthday={birthday}
+                />
+              }
+            />
+            <Route
+              path="/datingapp/signup/registration/interests"
+              element={
+                <Interests
+                  gender={gender}
+                  picture={picture}
+                  firstName={firstName}
+                  lastName={lastName}
+                  birthday={birthday}
+                  setInterest1={setInterest1}
+                  setInterest2={setInterest2}
+                  setInterest3={setInterest3}
+                  interest1={interest1}
+                  interest2={interest2}
+                  interest3={interest3}
                 />
               }
             />

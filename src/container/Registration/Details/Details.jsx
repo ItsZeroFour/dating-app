@@ -9,6 +9,9 @@ const Details = ({
   unCorrectBirthday,
   setPicture,
   picture,
+  firstName,
+  lastName,
+  birthday,
 }) => {
   const [maxFileSize, setMaxFileSize] = useState(false);
   const getInputEmail = localStorage.getItem("savedEmail");
@@ -42,15 +45,22 @@ const Details = ({
             className="detailt__avatar-input"
             type="file"
             id="file"
+            accept=".jpg, .jpeg, .png"
             onChange={handleSubmit}
           />
           <label className="detailt__avatar-label" htmlFor="file">
-            {picture === "" ? (
-              <img
-                className="details__photo"
-                src={camera}
-                alt="select picture"
-              />
+            {picture === "" || maxFileSize ? (
+              <div>
+                <img
+                  className="details__photo"
+                  src={camera}
+                  alt="select picture"
+                />
+
+                {maxFileSize && (
+                  <p style={{ marginTop: "1rem" }}>Max file size!</p>
+                )}
+              </div>
             ) : (
               <img className="details__avatar" src={picture} alt="avatar" />
             )}
@@ -91,9 +101,22 @@ const Details = ({
             )}
           </form>
 
-          <button className="registration__button details__button">
-            Confirm
-          </button>
+          {picture !== "" &&
+          firstName !== "" &&
+          lastName !== "" &&
+          birthday !== "" &&
+          !unCorrectBirthday ? (
+            <Link
+              className="continue__button"
+              to="/datingapp/signup/registration/gender"
+            >
+              Confirm
+            </Link>
+          ) : (
+            <div className="continue__button" style={{ opacity: 0.8 }}>
+              Confirm
+            </div>
+          )}
         </div>
       ) : (
         <div className="details__error">
