@@ -11,6 +11,7 @@ import { dbusers } from "./firebase/firebase-config-users";
 import { addDoc, collection } from "firebase/firestore";
 import Gender from "./container/Registration/Gender/Gender";
 import Interests from "./container/Registration/Interests/Interests";
+import About from "./container/Registration/About/About";
 
 function App() {
   const [inputValue, setInputValue] = useState(() => {
@@ -149,6 +150,10 @@ function App() {
                   interest3={interest3}
                 />
               }
+            />
+            <Route
+              path="/datingapp/signup/registration/about"
+              element={<About />}
             />
             <Route path="/datingapp/signin" element={<SignIn />} />
             <Route path="*" element={<Error />} />

@@ -10,3 +10,52 @@
     margin: 0;
   }
 }
+
+.interests__texts {
+  padding: 1.2rem;
+}
+
+.interests__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.interests__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.interests__item {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-border) !important;
+  border-radius: var(--border-radius-md) !important;
+  background: none;
+  cursor: pointer;
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+.interests__img {
+  margin-right: 0.5rem;
+}
+
+.active svg path {
+  fill: #fff;
+}
+
+.interests__button {
+  width: 100%;
+  margin: 1.3rem;
+}
+
+.button__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

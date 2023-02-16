@@ -2,6 +2,7 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import { interests } from "../../../data/interests";
 
 const Interests = ({
   gender,
@@ -16,6 +17,7 @@ const Interests = ({
   interest2,
   interest3,
 }) => {
+
   return (
     <div className="interests">
       {gender !== "" &&
@@ -30,12 +32,80 @@ const Interests = ({
             </Link>
           </div>
 
-          <div className="interests__text">
+          <div className="interests__texts">
             <h1 className="interests__title">Your Interests</h1>
             <p className="interests__text">
               Select a few of your interests and let everyone know what you’re
               passionate about.
             </p>
+          </div>
+
+          <div className="interests__content">
+            <ul className="interests__list">
+              {interests.map(({ image, title }) => (
+                <li
+                  className="interests__item"
+                  onClick={() =>
+                    interest1 === ""
+                      ? setInterest1(title)
+                      : interest2 === ""
+                      ? setInterest2(title)
+                      : interest3 === "" && setInterest3(title)
+                  }
+                  style={
+                    interest1 === title ||
+                    interest2 === title ||
+                    interest3 === title
+                      ? { backgroundColor: "#e94057" }
+                      : { backgroundColor: "transparent" }
+                  }
+                  key={title}
+                >
+                  <div
+                    className={
+                      interest1 === title ||
+                      interest2 === title ||
+                      interest3 === title
+                        ? "interests__img active"
+                        : "interests__img"
+                    }
+                  >
+                    {image}
+                  </div>
+
+                  <p
+                    style={
+                      interest1 === title ||
+                      interest2 === title ||
+                      interest3 === title
+                        ? { color: "#fff" }
+                        : { color: "#323755" }
+                    }
+                  >
+                    {title}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="button__container">
+            {interest1 !== "" && interest2 !== "" && interest3 !== "" ? (
+              <Link
+                className="interests__button continue__button"
+                to="/datingapp/signup/registration/about"
+              >
+                Continue
+              </Link>
+            ) : (
+              <div
+                className="interests__button continue__button"
+                style={{ opacity: 0.8 }}
+                to="/datingapp/signup/registration/about"
+              >
+                Continue
+              </div>
+            )}
           </div>
         </div>
       ) : (
