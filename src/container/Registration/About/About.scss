@@ -1,0 +1,50 @@
+.about__error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+  }
+}
+
+.about__content {
+  padding: 2rem;
+}
+
+.about__text-content {
+  margin-top: 2rem;
+
+  p {
+    margin-top: 1rem;
+  }
+}
+
+.about__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.about__textarea {
+  height: 15rem;
+  font-size: 1.25rem;
+  font-family: 'Sk-Modernist', sans-serif;
+  border-radius: var(--border-radius-md) !important;
+  padding: 1rem;
+  resize: none;
+}
+
+.about__button-confirm {
+  width: 100%;
+  margin-top: 1.5rem;
+  background: var(--color-red) !important;
+  padding: 1rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-white) !important;
+  border-radius: var(--border-radius-md) !important;
+}

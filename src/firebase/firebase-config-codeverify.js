@@ -1,11 +1,11 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import {getApps, getApp} from 'firebase/app'
+// import { initializeApp } from "firebase/app";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
+// import { getApps, getApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const firebaseCodeConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_CODE_KEY,
   authDomain: "datingapp-codeverify.firebaseapp.com",
   projectId: "datingapp-codeverify",
@@ -16,5 +16,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const appCode = initializeApp(firebaseConfig);
-export const dbcode = getFirestore(appCode);
+const app = initializeFirestore(firebaseCodeConfig, { useFetchStreams: false });
+
+export const dbcode = getFirestore(app);

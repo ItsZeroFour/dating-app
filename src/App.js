@@ -7,11 +7,12 @@ import Error from "./components/Error/Error";
 import SignIn from "./container/SignIn/SignIn";
 import SignUp from "./container/SignUp/SignUp";
 import EmailVerify from "./container/Registration/EmailVerify/EmailVerify";
-import { dbusers } from "./firebase/firebase-config-users";
+import { dbcode } from "./firebase/firebase-config-codeverify";
 import { addDoc, collection } from "firebase/firestore";
 import Gender from "./container/Registration/Gender/Gender";
 import Interests from "./container/Registration/Interests/Interests";
 import About from "./container/Registration/About/About";
+import Main from "./container/Main/Main";
 
 function App() {
   const [inputValue, setInputValue] = useState(() => {
@@ -28,9 +29,9 @@ function App() {
   const [interest2, setInterest2] = useState("");
   const [interest3, setInterest3] = useState("");
   const [location, setLocation] = useState("");
-  const [about, setAbout] = useState("");
+  const [aboutMe, setAboutMe] = useState("");
   const [unCorrectBirthday, setUnCorrectBirthday] = useState(false);
-  const usersCollectionsRef = collection(dbusers, "datingusers");
+  const usersCollectionsRef = collection(dbcode, "datingusers");
 
   useEffect(() => {
     localStorage.setItem("savedEmail", inputValue);
@@ -66,12 +67,14 @@ function App() {
     }
   }, [getYear]);
 
-  const createUser = () => {
-    addDoc(usersCollectionsRef, {
-      FirstName: firstName,
-      LastName: lastName,
-      Gender: gender,
-      Location: location,
+  const createUser = async (event) => {
+    event.preventDefault();
+
+    await addDoc(usersCollectionsRef, {
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      location: location,
       birthday: getDay,
       birthmonth: getMonth,
       birthyear: getYear,
@@ -80,13 +83,16 @@ function App() {
       interest2: interest2,
       interest3: interest3,
       picture: picture,
-      about: about,
+      about: aboutMe,
     });
+
+    console.log("dfddd");
   };
 
   return (
     <div className="App">
       <div className="app">
+        <button onClick={createUser}>bebra</button>
         <div className="app__content">
           <Routes>
             <Route path="/datingapp" element={<Home />} />
@@ -153,8 +159,23 @@ function App() {
             />
             <Route
               path="/datingapp/signup/registration/about"
-              element={<About />}
+              element={
+                <About
+                  setAboutMe={setAboutMe}
+                  aboutMe={aboutMe}
+                  gender={gender}
+                  picture={picture}
+                  firstName={firstName}
+                  lastName={lastName}
+                  birthday={birthday}
+                  interest1={interest1}
+                  interest2={interest2}
+                  interest3={interest3}
+                  createUser={createUser}
+                />
+              }
             />
+            <Route path="/datingapp/main" element={<Main />} />
             <Route path="/datingapp/signin" element={<SignIn />} />
             <Route path="*" element={<Error />} />
           </Routes>
