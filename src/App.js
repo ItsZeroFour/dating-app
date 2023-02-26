@@ -31,6 +31,8 @@ function App() {
   const [location, setLocation] = useState("");
   const [aboutMe, setAboutMe] = useState("");
   const [unCorrectBirthday, setUnCorrectBirthday] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [onClicked, setOnClicked] = useState(false)
   const usersCollectionsRef = collection(dbcode, "datingusers");
 
   useEffect(() => {
@@ -69,6 +71,7 @@ function App() {
 
   const createUser = async (event) => {
     event.preventDefault();
+    setOnClicked(true)
 
     await addDoc(usersCollectionsRef, {
       firstName: firstName,
@@ -86,13 +89,12 @@ function App() {
       about: aboutMe,
     });
 
-    console.log("dfddd");
+    setIsRegistered(true);
   };
 
   return (
     <div className="App">
       <div className="app">
-        <button onClick={createUser}>bebra</button>
         <div className="app__content">
           <Routes>
             <Route path="/datingapp" element={<Home />} />
@@ -172,6 +174,8 @@ function App() {
                   interest2={interest2}
                   interest3={interest3}
                   createUser={createUser}
+                  isRegistered={isRegistered}
+                  onClicked={onClicked}
                 />
               }
             />

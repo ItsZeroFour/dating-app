@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-import { getFirestore, initializeFirestore } from "firebase/firestore";
-// import { getApps, getApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getApps, getApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -16,6 +16,8 @@ const firebaseCodeConfig = {
 };
 
 // Initialize Firebase
-const app = initializeFirestore(firebaseCodeConfig, { useFetchStreams: false });
+const appUsers = !getApps().length
+  ? initializeApp(firebaseCodeConfig)
+  : getApp();
 
-export const dbcode = getFirestore(app);
+export const dbcode = getFirestore(appUsers);

@@ -1,12 +1,37 @@
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { dbcode } from "../../../firebase/firebase-config-codeverify";
 
 const About = (setAboutMe) => {
+  const [users, setUsers] = useState([]);
   const aboutLength = setAboutMe.aboutMe.split("").length;
+  const codeCollectionsRef = collection(dbcode, "datingusers");
 
-  // console.log(setAboutMe.createUser());
+  function changeHref() {
+    window.location.href = "/datingapp/main";
+    console.log(setAboutMe.isRegistered);
+  }
+
+  setAboutMe.isRegistered === true && changeHref();
+
+  useEffect(() => {
+    // Get firebase data
+    const getCode = async () => {
+      const data = await getDocs(codeCollectionsRef);
+      setUsers(
+        data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }))
+      );
+    };
+    getCode();
+  }, []);
+
+  console.log(users);
 
   return (
     <div className="about">
@@ -39,13 +64,78 @@ const About = (setAboutMe) => {
                 onChange={(event) => setAboutMe.setAboutMe(event.target.value)}
               />
               {aboutLength >= 50 ? (
-                <Link
-                  className="about__button-confirm"
-                  onClick={setAboutMe.createUser()}
-                  to="/datingapp/main"
-                >
-                  Confirm
-                </Link>
+                <div className="button__container">
+                  {setAboutMe.onClicked === false ? (
+                    <button
+                      className="about__button-confirm"
+                      onClick={setAboutMe.createUser}
+                    >
+                      Confirm
+                    </button>
+                  ) : (
+                    <button
+                      className="about__button-confirm"
+                      disabled
+                      style={{ opacity: 0.8 }}
+                    >
+                      Register...{" "}
+                      <svg
+                        class="pl"
+                        viewBox="0 0 200 200"
+                        width="200"
+                        height="200"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <linearGradient
+                            id="pl-grad1"
+                            x1="1"
+                            y1="0.5"
+                            x2="0"
+                            y2="0.5"
+                          >
+                            <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                            <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                          </linearGradient>
+                          <linearGradient
+                            id="pl-grad2"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
+                          >
+                            <stop offset="0%" stop-color="hsl(313,90%,55%)" />
+                            <stop offset="100%" stop-color="hsl(223,90%,55%)" />
+                          </linearGradient>
+                        </defs>
+                        <circle
+                          class="pl__ring"
+                          cx="100"
+                          cy="100"
+                          r="82"
+                          fill="none"
+                          stroke="url(#pl-grad1)"
+                          stroke-width="36"
+                          stroke-dasharray="0 257 1 257"
+                          stroke-dashoffset="0.01"
+                          stroke-linecap="round"
+                          transform="rotate(-90,100,100)"
+                        />
+                        <line
+                          class="pl__ball"
+                          stroke="url(#pl-grad2)"
+                          x1="100"
+                          y1="18"
+                          x2="100.01"
+                          y2="182"
+                          stroke-width="36"
+                          stroke-dasharray="1 165"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                </div>
               ) : (
                 <button
                   className="about__button-confirm about__disabled"
